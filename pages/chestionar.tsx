@@ -1,6 +1,4 @@
 import Ans from "../components/ans";
-import happy from "../public/img/happy.svg";
-import ooops from "../public/img/ooops.svg";
 import catego from "../data/catego";
 import { useState } from "react";
 
@@ -12,7 +10,7 @@ const Chestionar = () => {
   let curr_gresite = [];
   let goal = 26;
   let [curenta, setCurenta] = useState(0);
-  let [answers, setAnswers] = useState([""]);
+  let [answers, setAnswers] = useState([]);
   let [corecta, setCorecta] = useState("");
   let [verificata, setVerificata] = useState(false);
   let theStateAsItIsNow = {};
@@ -22,13 +20,11 @@ const Chestionar = () => {
   }
   function answerClick(a) {
     let ans = [...answers];
-    console.log("before if ::: ", ans);
     if (ans.includes(a)) {
       ans = ans.filter((an) => an != a);
     } else {
       ans.push(a);
     }
-
     setAnswers(ans);
     console.log("current answers : ", answers);
     console.log("Coorect answer ::: ", intrebari[curenta].v);
@@ -38,12 +34,12 @@ const Chestionar = () => {
     if (intrebari[curenta].v === answers.join("")) {
       curr_corecte.push(intrebari[curenta].id);
 
-      console.log("Correct Answer" + curr_corecte.length);
+      console.log("Correct Answer Array", curr_corecte);
       setCorecta("true");
     } else {
       curr_gresite.push(intrebari[curenta].id);
       setCorecta("false");
-      console.log("Wrong answer bro" + (curr_corecte.length / goal) * 100);
+      console.log("Wrong answer bro A", curr_corecte);
     }
     setVerificata(!verificata);
   }
@@ -58,9 +54,9 @@ const Chestionar = () => {
     theStateAsItIsNow = {
       ...theStateAsItIsNow,
       [categoria]: {
-        curr_gresite: curr_gresite,
-        curr_corecte: curr_corecte,
-        curenta: curenta,
+        curr_gresite: [...curr_gresite],
+        curr_corecte: [...curr_corecte],
+        curenta,
       },
     };
     console.log("SOMETHIGN");
@@ -122,11 +118,12 @@ const Chestionar = () => {
       {
         answers.length > 0 && (
           <div
-            className="verificator"
+            className={`verificator`}
             //   classList={{ wrong: corecta === "false" && corecta.length > 0 }}
           >
             {corecta === "true" && (
               <div className="msg">
+                <i></i>
                 <div className="columns">
                   <div className="column is-half is-offset-one-quarter">
                     <article className="media">
@@ -150,6 +147,7 @@ const Chestionar = () => {
             )}
             {corecta === "false" && (
               <div className="msg">
+                <b></b>
                 <div className="columns">
                   <div className="column is-half is-offset-one-quarter">
                     <article className="media">

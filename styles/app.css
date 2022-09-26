@@ -317,7 +317,7 @@ rgba(102, 102, 102, 0.1)
 }
 
 .verificator {
-  background: green;
+ background: rgb(132, 36, 229);
   color:#fff;
   font-size: 44px;
   text-align: center;
@@ -343,8 +343,11 @@ rgba(102, 102, 102, 0.1)
   color: #fff;
 }
 
-.wrong {
+.verificator:has(b) {
   background: red;
+}
+.verificator:has(i){
+  background: rgb(11, 164, 6);
 }
 .questions-menu {
   display: flex;
