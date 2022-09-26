@@ -12,7 +12,7 @@ const Chestionar = () => {
   let curr_gresite = [];
   let goal = 26;
   let [curenta, setCurenta] = useState(0);
-  let [answers, setAnswers] = useState([]);
+  let [answers, setAnswers] = useState([""]);
   let [corecta, setCorecta] = useState("");
   let [verificata, setVerificata] = useState(false);
   let theStateAsItIsNow = {};
@@ -21,13 +21,15 @@ const Chestionar = () => {
     setAnswers([]);
   }
   function answerClick(a) {
-    // console.log("before if ::: ", answers);
-    // if (answers.includes(a)) {
-    //   answers = answers.filter((ans) => ans != a);
-    // } else {
-    //   answers.push(a);
-    // }
-    setAnswers(["a"]);
+    let ans = [...answers];
+    console.log("before if ::: ", ans);
+    if (ans.includes(a)) {
+      ans = ans.filter((an) => an != a);
+    } else {
+      ans.push(a);
+    }
+
+    setAnswers(ans);
     console.log("current answers : ", answers);
     console.log("Coorect answer ::: ", intrebari[curenta].v);
   }
@@ -105,7 +107,12 @@ const Chestionar = () => {
             {["a", "b", "c"].map((ans) => {
               return (
                 <div onClick={() => answerClick(ans)} key={ans}>
-                  <Ans text={intrebari[curenta][ans]} value={ans}></Ans>
+                  <Ans
+                    text={intrebari[curenta][ans]}
+                    key={ans}
+                    value={ans}
+                    active={answers.includes(ans)}
+                  ></Ans>
                 </div>
               );
             })}
