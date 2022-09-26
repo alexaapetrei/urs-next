@@ -3,7 +3,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #D70D34;
-  margin-top: 80px;
+  margin-top: .75rem;
   padding-left: .75rem;
   padding-right: .75rem;
 }
@@ -78,8 +78,28 @@
   right: 0;
   padding-top: 5px;
 }
+.coolNav a{
+
+  z-index: 99;
+  text-decoration: none;
+  text-align: center;
+  color: #d70d34;
+  font-weight: 700;
+  line-height: 42px;
+  vertical-align: middle;
+  padding: 0 5px;
+  margin: 0 5px;
+  border: 3px solid transparent;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
 .logo {
   width: 50px;
+  border-radius: 25px;
 }
 @media (max-width:400px) {
   .logoText {
