@@ -1,20 +1,37 @@
 import Ans from "../components/ans";
 import catego from "../data/catego";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+let curr_corecte = [];
+let curr_gresite = [];
+let goal = 26;
+let categoria = "a";
 
 const Chestionar = () => {
-  let categoria = "c";
-  let intrebari = catego[categoria];
-
-  let curr_corecte = [];
-  let curr_gresite = [];
-  let goal = 26;
   let [curenta, setCurenta] = useState(0);
   let [answers, setAnswers] = useState([]);
   let [corecta, setCorecta] = useState("");
   let [verificata, setVerificata] = useState(false);
-  let theStateAsItIsNow = {};
+  let [theStateAsItIsNow, setTheStateAsItIsNow] = useState({});
 
+  useEffect(() => {
+    let initialState;
+    try {
+      initialState = JSON.parse(
+        window.localStorage.getItem("theStateAsItIsNow")
+      );
+      console.log(initialState.curenta);
+      //setTheStateAsItIsNow(initialState);
+    } catch (err) {
+      console.log(err);
+      initialState = {};
+    }
+  }, []);
+
+  let intrebari = catego[categoria];
+
+  function persist(it) {
+    localStorage.setItem("theStateAsItIsNow", JSON.stringify(it));
+  }
   function clearAnsewers() {
     setAnswers([]);
   }
@@ -45,20 +62,22 @@ const Chestionar = () => {
   }
 
   function nextQuestion() {
+    theStateAsItIsNow = {
+      ...theStateAsItIsNow,
+      [categoria]: {
+        curr_gresite,
+        curr_corecte,
+        curenta,
+      },
+    };
+    persist(theStateAsItIsNow);
     setVerificata(false);
     setAnswers([]);
     setCurenta((prev) => prev + 1);
     setCorecta("");
 
     // to be implemented as a separate function that should store it in localStorage
-    theStateAsItIsNow = {
-      ...theStateAsItIsNow,
-      [categoria]: {
-        curr_gresite: [...curr_gresite],
-        curr_corecte: [...curr_corecte],
-        curenta,
-      },
-    };
+
     console.log("SOMETHIGN");
     console.log(theStateAsItIsNow);
     console.log(theStateAsItIsNow[categoria]);
