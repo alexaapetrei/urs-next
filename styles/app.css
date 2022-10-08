@@ -8,6 +8,12 @@
   padding-right: .75rem;
 }
 
+.coolNav:first a {
+  background-color: #666;
+  background-image: "logo.png";
+  height: 60px;
+}
+
 .sup {margin-top: 100px;}
 .stacked_progress {
   border: 1px solid grey;

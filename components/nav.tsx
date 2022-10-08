@@ -1,14 +1,14 @@
+import Link from "next/link";
 const Nav = (props) => {
   const { active } = props;
   return (
     <nav className={"coolNav"}>
-      <a href="/home" className="home">
-        <img width="60px" src="/logo.png" alt="hello" className="logo" />
-
-        <span className="logoText"> UrsSur</span>
-      </a>
-      <a href="/chestionar">Chestionar</a>
-      <a href="/cauta">Cauta</a>
+      <Link href="/home" className="home">
+        Home
+        {/* <img width="60px" src="/logo.png" alt="hello" className="logo" /> */}
+      </Link>
+      <Link href="/chestionar">Chestionar</Link>
+      <Link href="/cauta">Cauta</Link>
     </nav>
   );
 };

@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 import catego from "../data/catego";
-export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const init = {
@@ -36,4 +35,5 @@ const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
+export const AppContext = createContext(AppProvider);
 export default AppProvider;
