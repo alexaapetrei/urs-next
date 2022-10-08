@@ -4,14 +4,12 @@ import catego from "../data/catego";
 
 const CatSelector = () => {
   const { state, setState } = useContext(AppContext);
-  const [categoria, setCategoria] = useState(state.categoria);
+
   function clicked(thing: string) {
-    setCategoria(thing);
     setState({
       ...state,
       categoria: thing,
       intrebari: catego[thing],
-      intrebare: catego[thing][0],
     });
   }
 
@@ -20,7 +18,10 @@ const CatSelector = () => {
       <ul>
         {["a", "b", "c", "d", "e", "r"].map((cat) => {
           return (
-            <li className={categoria == cat ? "is-active" : null} key={cat}>
+            <li
+              className={state.categoria == cat ? "is-active" : null}
+              key={cat}
+            >
               <a href="#" onClick={() => clicked(cat)}>
                 <span>{cat.toUpperCase()}</span>
               </a>

@@ -8,33 +8,11 @@ let goal = 26;
 
 const Chestionar = () => {
   const { state, setState } = useContext(AppContext);
+
   let [answers, setAnswers] = useState([]);
   let [corecta, setCorecta] = useState("");
   let [verificata, setVerificata] = useState(false);
   let [theStateAsItIsNow, setTheStateAsItIsNow] = useState({});
-
-  // useEffect(() => {
-  //   let persCat;
-  //   let initialState;
-  //   try {
-  //     persCat = localStorage.getItem("categoria");
-  //     initialState = JSON.parse(localStorage.getItem("theStateAsItIsNow"));
-  //     console.log(initialState.curenta);
-  //   } catch (err) {
-  //     console.log(err);
-  //     initialState = {};
-  //     persCat = "b";
-  //     console.log("No cat is stored here : ");
-  //   }
-  //   let tempInt = catego[persCat];
-  //   setIntreari(tempInt);
-  //   setIntreare(intrebari[curenta]);
-  //   console.log("Temp Int  ", tempInt[curenta]);
-  //   setCategoria(persCat);
-  //   setTheStateAsItIsNow(initialState);
-  // });
-
-  // let intrebari = intrebarii;
 
   function persist(it) {
     localStorage.setItem("theStateAsItIsNow", JSON.stringify(it));
@@ -51,17 +29,17 @@ const Chestionar = () => {
     }
     setAnswers(ans);
     console.log("current answers : ", answers);
-    console.log("Coorect answer ::: ", state.intrebare.v);
+    console.log("Coorect answer ::: ", state.intrebari[0].v);
   }
 
   function checkAnswer() {
-    if (state.intrebare.v === answers.join("")) {
-      curr_corecte.push(state.intrebare.id);
+    if (state.intrebari[0].v === answers.join("")) {
+      curr_corecte.push(state.intrebari[0].id);
 
       console.log("Correct Answer Array", curr_corecte);
       setCorecta("true");
     } else {
-      curr_gresite.push(state.intrebare.id);
+      curr_gresite.push(state.intrebari[0].id);
       setCorecta("false");
       console.log("Wrong answer bro A", curr_corecte);
     }
@@ -69,17 +47,21 @@ const Chestionar = () => {
   }
 
   function nextQuestion() {
+    if (localStorage.getItem("theStateAsItIsNow")) {
+      theStateAsItIsNow = JSON.parse(localStorage.getItem("theStateAsItIsNow"));
+    }
     theStateAsItIsNow = {
       ...theStateAsItIsNow,
       [state.categoria]: {
         curr_gresite,
         curr_corecte,
-        curenta: state.curenta,
       },
     };
     persist(theStateAsItIsNow);
     setVerificata(false);
     setAnswers([]);
+    let newIntre = [...state.intrebari];
+    newIntre = newIntre.slice(1);
 
     // setCurenta((prev) => prev + 1);
     console.log(catego[state.categoria][state.curenta + 1]);
@@ -87,8 +69,7 @@ const Chestionar = () => {
       ...state,
       curr_gresite: curr_gresite,
       curr_corecte: curr_corecte,
-      curenta: state.curenta + 1,
-      intrebare: catego[state.categoria][state.curenta + 1],
+      intrebari: newIntre,
     });
     setCorecta("");
 
@@ -105,31 +86,37 @@ const Chestionar = () => {
           <div className="column is-8">
             <div className="stacked_progress">
               <div
-                style={{ width: (curr_corecte.length / goal) * 100 + "%" }}
+                style={{
+                  width: (curr_corecte.length / state.goal) * 100 + "%",
+                  background: "green",
+                }}
               ></div>
               <div
-                style={{ width: (curr_gresite.length / goal) * 100 + "%" }}
+                style={{
+                  width: (curr_gresite.length / state.goal) * 100 + "%",
+                  background: "red",
+                }}
               ></div>
             </div>
           </div>
 
           <div className="column has-text-centered is-3">
-            {curr_corecte.length + curr_gresite.length} / {goal}
+            {curr_corecte.length + curr_gresite.length} / {state.goal}
           </div>
         </div>
 
         <div className="testThing">
           <h2 className="title is-4" onClick={() => clearAnsewers()}>
-            {state.intrebare.q}
+            {state.intrebari[0].q}
           </h2>
 
           <div className="columns">
-            {state.intrebare.i > 0 && (
+            {state.intrebari[0].i > 0 && (
               <div className="column">
                 <figure className="image is-3by2">
                   <img
                     alt=""
-                    src={`/img/${state.categoria}/${state.intrebare.i}.jpg`}
+                    src={`/img/${state.categoria}/${state.intrebari[0].i}.jpg`}
                   />
                 </figure>
               </div>
@@ -140,7 +127,7 @@ const Chestionar = () => {
                 return (
                   <div onClick={() => answerClick(ans)} key={ans}>
                     <Ans
-                      text={state.intrebare[ans]}
+                      text={state.intrebari[0][ans]}
                       key={ans}
                       value={ans}
                       active={answers.includes(ans)}
@@ -173,7 +160,9 @@ const Chestionar = () => {
                         <div className="media-content">
                           <p>Bravo ai raspuns corect :</p>
                           <p>
-                            <strong className="v">{state.intrebare.v}</strong>
+                            <strong className="v">
+                              {state.intrebari[0].v}
+                            </strong>
                           </p>
                         </div>
                       </article>
@@ -198,7 +187,9 @@ const Chestionar = () => {
                           <p>Omul din greseli invata !</p>
                           <p>
                             Corect este :{" "}
-                            <strong className="v">{state.intrebare.v}</strong>
+                            <strong className="v">
+                              {state.intrebari[0].v}
+                            </strong>
                           </p>
                         </div>
                       </article>

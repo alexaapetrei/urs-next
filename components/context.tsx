@@ -8,26 +8,25 @@ const AppProvider = ({ children }) => {
     curr_gresite: [],
     goal: 26,
     categoria: "b",
-    intrebari: { ...catego["b"] },
-    intrebare: { ...catego["b"][0] },
-    curenta: 0,
+    intrebari: [...catego["b"]],
   };
   const [state, setState] = useState(init);
 
   useEffect(() => {
-    let loadState;
-    try {
-      if (!localStorage.getItem("persistedState")) throw "Oh crap";
+    let loadState = init;
+    if (localStorage.getItem("persistedState")) {
       loadState = JSON.parse(localStorage.getItem("persistedState"));
-    } catch (err) {
-      loadState = init;
-      console.log("No cat is stored here : ", err);
+      let done = loadState.curr_corecte.concat(loadState.curr_gresite);
+      let intrebariRamase = loadState.intrebari.filter(
+        (i) => !done.includes(i.id)
+      );
+      loadState = { ...loadState, intrebari: intrebariRamase };
     }
     setState(loadState);
   }, []);
 
   useEffect(() => {
-    if (JSON.stringify(state) != localStorage.getItem("persistedState"))
+    if (JSON.stringify(state) != JSON.stringify(init))
       localStorage.setItem("persistedState", JSON.stringify(state));
   }, [state]);
 
