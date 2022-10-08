@@ -1,33 +1,40 @@
 import Ans from "../components/ans";
 import catego from "../data/catego";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from "../components/context";
 let curr_corecte = [];
 let curr_gresite = [];
 let goal = 26;
-let categoria = "a";
 
 const Chestionar = () => {
-  let [curenta, setCurenta] = useState(0);
+  const { state, setState } = useContext(AppContext);
   let [answers, setAnswers] = useState([]);
   let [corecta, setCorecta] = useState("");
   let [verificata, setVerificata] = useState(false);
   let [theStateAsItIsNow, setTheStateAsItIsNow] = useState({});
 
-  useEffect(() => {
-    let initialState;
-    try {
-      initialState = JSON.parse(
-        window.localStorage.getItem("theStateAsItIsNow")
-      );
-      console.log(initialState.curenta);
-      //setTheStateAsItIsNow(initialState);
-    } catch (err) {
-      console.log(err);
-      initialState = {};
-    }
-  }, []);
+  // useEffect(() => {
+  //   let persCat;
+  //   let initialState;
+  //   try {
+  //     persCat = localStorage.getItem("categoria");
+  //     initialState = JSON.parse(localStorage.getItem("theStateAsItIsNow"));
+  //     console.log(initialState.curenta);
+  //   } catch (err) {
+  //     console.log(err);
+  //     initialState = {};
+  //     persCat = "b";
+  //     console.log("No cat is stored here : ");
+  //   }
+  //   let tempInt = catego[persCat];
+  //   setIntreari(tempInt);
+  //   setIntreare(intrebari[curenta]);
+  //   console.log("Temp Int  ", tempInt[curenta]);
+  //   setCategoria(persCat);
+  //   setTheStateAsItIsNow(initialState);
+  // });
 
-  let intrebari = catego[categoria];
+  // let intrebari = intrebarii;
 
   function persist(it) {
     localStorage.setItem("theStateAsItIsNow", JSON.stringify(it));
@@ -44,17 +51,17 @@ const Chestionar = () => {
     }
     setAnswers(ans);
     console.log("current answers : ", answers);
-    console.log("Coorect answer ::: ", intrebari[curenta].v);
+    console.log("Coorect answer ::: ", state.intrebare.v);
   }
 
   function checkAnswer() {
-    if (intrebari[curenta].v === answers.join("")) {
-      curr_corecte.push(intrebari[curenta].id);
+    if (state.intrebare.v === answers.join("")) {
+      curr_corecte.push(state.intrebare.id);
 
       console.log("Correct Answer Array", curr_corecte);
       setCorecta("true");
     } else {
-      curr_gresite.push(intrebari[curenta].id);
+      curr_gresite.push(state.intrebare.id);
       setCorecta("false");
       console.log("Wrong answer bro A", curr_corecte);
     }
@@ -64,23 +71,32 @@ const Chestionar = () => {
   function nextQuestion() {
     theStateAsItIsNow = {
       ...theStateAsItIsNow,
-      [categoria]: {
+      [state.categoria]: {
         curr_gresite,
         curr_corecte,
-        curenta,
+        curenta: state.curenta,
       },
     };
     persist(theStateAsItIsNow);
     setVerificata(false);
     setAnswers([]);
-    setCurenta((prev) => prev + 1);
+
+    // setCurenta((prev) => prev + 1);
+    console.log(catego[state.categoria][state.curenta + 1]);
+    setState({
+      ...state,
+      curr_gresite: curr_gresite,
+      curr_corecte: curr_corecte,
+      curenta: state.curenta + 1,
+      intrebare: catego[state.categoria][state.curenta + 1],
+    });
     setCorecta("");
 
     // to be implemented as a separate function that should store it in localStorage
 
     console.log("SOMETHIGN");
     console.log(theStateAsItIsNow);
-    console.log(theStateAsItIsNow[categoria]);
+    console.log(theStateAsItIsNow[state.categoria]);
   }
   return (
     <div id="app">
@@ -104,16 +120,16 @@ const Chestionar = () => {
 
         <div className="testThing">
           <h2 className="title is-4" onClick={() => clearAnsewers()}>
-            {intrebari[curenta].q}
+            {state.intrebare.q}
           </h2>
 
           <div className="columns">
-            {intrebari[curenta].i > 0 && (
+            {state.intrebare.i > 0 && (
               <div className="column">
                 <figure className="image is-3by2">
                   <img
                     alt=""
-                    src={`/img/${categoria}/${intrebari[curenta].i}.jpg`}
+                    src={`/img/${state.categoria}/${state.intrebare.i}.jpg`}
                   />
                 </figure>
               </div>
@@ -124,7 +140,7 @@ const Chestionar = () => {
                 return (
                   <div onClick={() => answerClick(ans)} key={ans}>
                     <Ans
-                      text={intrebari[curenta][ans]}
+                      text={state.intrebare[ans]}
                       key={ans}
                       value={ans}
                       active={answers.includes(ans)}
@@ -157,9 +173,7 @@ const Chestionar = () => {
                         <div className="media-content">
                           <p>Bravo ai raspuns corect :</p>
                           <p>
-                            <strong className="v">
-                              {intrebari[curenta].v}
-                            </strong>
+                            <strong className="v">{state.intrebare.v}</strong>
                           </p>
                         </div>
                       </article>
@@ -184,9 +198,7 @@ const Chestionar = () => {
                           <p>Omul din greseli invata !</p>
                           <p>
                             Corect este :{" "}
-                            <strong className="v">
-                              {intrebari[curenta].v}
-                            </strong>
+                            <strong className="v">{state.intrebare.v}</strong>
                           </p>
                         </div>
                       </article>
