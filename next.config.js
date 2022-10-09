@@ -4,8 +4,13 @@ const nextConfig = {
   swcMinify: true,
 }
 
-const typescript = {
-  ignoreBuildErrors: true,
-}
+ 
+ const typescript = {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  }
 
-module.exports = {nextConfig,typescript}
+module.exports = {nextConfig,typescript};

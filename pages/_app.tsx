@@ -1,3 +1,4 @@
+import "../styles/globals.css";
 import "../styles/app.css";
 import "../styles/bulma.css";
 import Nav from "../components/nav";

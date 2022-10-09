@@ -8,6 +8,15 @@
   padding-right: .75rem;
 }
 
+.tailBtn {
+  @apply text-2xl font-semibold p-6 m-10 my-14 rounded  bg-green-500 text-white snap-center;
+}
+
+.tailBtn:hover {
+  @apply bg-green-700 text-white;
+}
+
+
 .coolNav:first a {
   background-color: #666;
   background-image: "logo.png";

@@ -7,13 +7,13 @@ const Home = () => {
   const { state, setState } = useContext(AppContext);
   return (
     <>
-      <h1 class="title">
+      <h1 className="title">
         Selecteaza Categoria : Momentan esti in {state.categoria}
       </h1>
       <CatSelector />
-
-      <Link clasName="button" href="/chestionar">
-        <a className="is-success is-large button">Spre Chestionar</a>
+      <br />
+      <Link href="/chestionar">
+        <a className="tailBtn">Spre Chestionar</a>
       </Link>
     </>
   );
