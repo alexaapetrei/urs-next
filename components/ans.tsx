@@ -1,4 +1,3 @@
-import { useState } from "react";
 type AnsProps = {
   value: "a" | "b" | "c";
   text: string;

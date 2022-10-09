@@ -81,6 +81,7 @@ const Cauta = () => {
                   </p>
                 </footer>
               </div>
+              <br />
             </>
           );
         })}

@@ -1,5 +1,6 @@
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /* @apply font-sans; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #D70D34;
@@ -9,21 +10,32 @@
 }
 
 .tailBtn {
-  @apply text-2xl font-semibold p-6 m-10 my-14 rounded  bg-green-500 text-white snap-center;
+  @apply 
+  text-2xl 
+  font-semibold 
+  p-6 
+  m-10 
+  my-14 
+  rounded  
+  bg-green-500 
+  text-white snap-center;
 }
 
 .tailBtn:hover {
-  @apply bg-green-700 text-white;
+  @apply bg-green-200
+  ring-orange-300 ring-2
+  subpixel-antialiased  text-gray-600 transition-all;
 }
 
 
 .coolNav:first a {
-  background-color: #666;
+  @apply bg-gray-500;
   background-image: "logo.png";
   height: 60px;
 }
 
 .sup {margin-top: 100px;}
+
 .stacked_progress {
   border: 1px solid grey;
   height: 22px;
@@ -352,7 +364,8 @@ rgba(102, 102, 102, 0.1)
 }
 
 .verificator {
- background: rgb(132, 36, 229);
+  @apply transition-all;
+ /* background: rgb(132, 36, 229); */
   color:#fff;
   font-size: 44px;
   text-align: center;
@@ -473,11 +486,11 @@ h2 {
   stroke: currentColor;
   fill: currentColor;
   align-content: center;
+  font-size: 40px;
   animation: swing-in-bottom-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 }
 .active .letter {
-  display: none;
-
+  opacity: 0;
 }
 .letter {
   color: #000;
@@ -486,13 +499,28 @@ h2 {
   padding: 10px;
   align-self: center;
 }
-
+/* 
 .active {
   color: #fff;
   background: #D70D34;
   border-top: 2px solid #fff;
   border-bottom: 0;
   min-height: 42px;
+  /* padding: 5px 10px; */
+  /* margin:5px 0; */
+/* }  */
+
+
+.active {
+  min-height: 49px;
+  background:#D70D34;
+  color:aliceblue;
+  border-radius: 5px;
+  border-bottom: 2px solid #666;
   padding: 5px 10px;
   margin:5px 0;
+  text-align: left;
+  font-size: 18px;
+  /*line-height: 20px;*/
+  display: flex;
 }

@@ -9,7 +9,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AppProvider>
       <Nav></Nav>
-      <Component {...pageProps} />
+      <div id="app">
+        <Component {...pageProps} />
+      </div>
     </AppProvider>
   );
 }
