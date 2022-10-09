@@ -22,7 +22,7 @@ const CatSelector = () => {
               className={state.categoria == cat ? "is-active" : null}
               key={cat}
             >
-              <a href="#" onClick={() => clicked(cat)}>
+              <a onClick={() => clicked(cat)}>
                 <span>{cat.toUpperCase()}</span>
               </a>
             </li>

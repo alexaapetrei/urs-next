@@ -9,19 +9,17 @@ const Cauta = () => {
 
   const handleUpdate = (e) => {
     let thing = e.target.value;
-    console.log(thing);
-    setSearch(thing);
+    setSearch(thing.toLowerCase());
   };
 
   useEffect(() => {
     let filtered = catego[state.categoria].filter((g) =>
       g.q.toLowerCase().includes(search)
     );
-    // filtered = filtered.slice(0, 10);
 
-    setFound(filtered);
+    setFound(filtered.splice(0, 10));
     console.log(found);
-  }, [search]);
+  }, [search, state.categoria]);
 
   return (
     <>
@@ -36,49 +34,56 @@ const Cauta = () => {
           />
         </p>
       </div>
-      {found.splice(0, 10).map((s) => {
-        return (
-          <>
-            <div key={s.id} className="card">
-              <div className="card-header">
-                <h2 className="card-header-title"> {s.q} </h2>
-              </div>
-              <div className="card-content">
-                <div className="columns">
-                  {s.i > 0 && (
+      {found.length == 0 && (
+        <>
+          <h1 className="title">Could not find what you searched for</h1>
+          <img src="/img/happy-stress.svg" width="300" alt="UrsSur" />
+        </>
+      )}
+      {found.length > 0 &&
+        found.map((s) => {
+          return (
+            <>
+              <div key={s.id} className="card">
+                <div className="card-header">
+                  <h2 className="card-header-title"> {s.q} </h2>
+                </div>
+                <div className="card-content">
+                  <div className="columns">
+                    {s.i > 0 && (
+                      <div className="column">
+                        <figure className="image is-3by2">
+                          <img src={`/img/${state.categoria}/${s.i}.jpg`}></img>
+                        </figure>
+                      </div>
+                    )}
                     <div className="column">
-                      <figure className="image is-3by2">
-                        <img src={`/img/${state.categoria}/${s.i}.jpg`}></img>
-                      </figure>
-                    </div>
-                  )}
-                  <div className="column">
-                    <div className="center-vertical">
-                      <div className="ans">
-                        <span className="letter">a</span>
-                        <span className="text">{s.a}</span>
-                      </div>
-                      <div className="ans">
-                        <span className="letter">b</span>
-                        <span className="text">{s.b}</span>
-                      </div>
-                      <div className="ans">
-                        <span className="letter">c</span>
-                        <span className="text">{s.c}</span>
+                      <div className="center-vertical">
+                        <div className="ans">
+                          <span className="letter">a</span>
+                          <span className="text">{s.a}</span>
+                        </div>
+                        <div className="ans">
+                          <span className="letter">b</span>
+                          <span className="text">{s.b}</span>
+                        </div>
+                        <div className="ans">
+                          <span className="letter">c</span>
+                          <span className="text">{s.c}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <footer className="card-footer">
+                  <p className="card-footer-item correct">
+                    <span className="text">Varianta corecta : {s.v} </span>
+                  </p>
+                </footer>
               </div>
-              <footer className="card-footer">
-                <p className="card-footer-item correct">
-                  <span className="text">Varianta corecta : {s.v} </span>
-                </p>
-              </footer>
-            </div>
-          </>
-        );
-      })}
+            </>
+          );
+        })}
     </>
   );
 };
