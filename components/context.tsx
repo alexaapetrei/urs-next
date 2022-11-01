@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import catego from "../data/catego";
 
-const AppProvider = ({ children }) => {
+function AppProvider({ children }) {
   const init = {
     curr_corecte: [],
     curr_gresite: [],
@@ -34,6 +34,6 @@ const AppProvider = ({ children }) => {
       {children}
     </AppContext.Provider>
   );
-};
+}
 export const AppContext = createContext(AppProvider);
 export default AppProvider;
