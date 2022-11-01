@@ -5,13 +5,12 @@ import Link from "next/link";
 
 const Home = ({ data }) => {
   const { state, setState } = useContext(AppContext);
-  const { coco, loco, lol222, da } = data;
+
   console.log("Da fak,    ", data);
   return (
     <>
       <h1 className=" text-4xl font-bold text-neutral-700 pb-7 ">
-        Selecteaza Categoria : Momentan esti in {state.categoria} {coco} {loco}{" "}
-        {lol222} {da}
+        Selecteaza Categoria : Momentan esti in {state.categoria}
       </h1>
       <CatSelector />
       <br />
