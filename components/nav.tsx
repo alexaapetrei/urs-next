@@ -5,13 +5,12 @@ const Nav = (props) => {
   const { active } = props;
   return (
     <nav className={"coolNav"}>
-      <Link href="/">
-        <a className="p-1">
-          <img width="60px" src="/logo.png" alt="Home" className="logo" />
-        </a>
+      <Link href="/" className="p-1">
+        <img width="60px" src="/logo.png" alt="Home" className="logo" />
       </Link>
       <Link href="/chestionar">Chestionar</Link>
       <Link href="/cauta">Cauta</Link>
+      <Link href="/appfolder">AppFolder</Link>
     </nav>
   );
 };
