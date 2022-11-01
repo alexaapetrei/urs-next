@@ -10,7 +10,6 @@ const Nav = (props) => {
       </Link>
       <Link href="/chestionar">Chestionar</Link>
       <Link href="/cauta">Cauta</Link>
-      <Link href="/appfolder">AppFolder</Link>
     </nav>
   );
 };
