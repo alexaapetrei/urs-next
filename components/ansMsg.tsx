@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 export default function Ansmsg(props) {
   const { correct, variante } = props;
 
@@ -7,24 +8,20 @@ export default function Ansmsg(props) {
   };
 
   return (
-    <div className="msg">
+    <>
       {correct ? <i></i> : <b></b>}
       <img src={imgTranslator[correct]} className="fixies" alt="UrsSur" />
-      <div className="columns">
+      <div className="columns msg">
         <div className="column is-half is-offset-one-quarter">
-          <article className="media">
-            <div className="media-content">
-              {correct ? (
-                ""
-              ) : (
-                <p>
-                  Corect este : <strong className="v">{variante}</strong>
-                </p>
-              )}
-            </div>
-          </article>
+          {correct ? (
+            ""
+          ) : (
+            <p>
+              Corect este : <strong className="v">{variante}</strong>
+            </p>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
