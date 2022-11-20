@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import Ans from "../components/ans";
 import catego from "../data/catego";
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../components/context";
+import Ansmsg from "../components/ansMsg";
 let curr_corecte = [];
 let curr_gresite = [];
 let goal = 26;
@@ -64,7 +66,7 @@ const Chestionar = () => {
     newIntre = newIntre.slice(1);
 
     // setCurenta((prev) => prev + 1);
-    console.log(catego[state.categoria][state.curenta + 1]);
+    console.log(catego[state.categoria]);
     setState({
       ...state,
       curr_gresite: curr_gresite,
@@ -115,7 +117,7 @@ const Chestionar = () => {
               <div className="column">
                 <figure className="image is-3by2">
                   <img
-                    alt=""
+                    alt={state.intrebari[0].q}
                     src={`/img/${state.categoria}/${state.intrebari[0].i}.jpg`}
                   />
                 </figure>
@@ -138,70 +140,16 @@ const Chestionar = () => {
             </div>
           </div>
         </div>
-        {
-          answers.length > 0 && (
-            <div
-              className={`verificator`}
-              //   classList={{ wrong: corecta === "false" && corecta.length > 0 }}
-            >
-              {corecta === "true" && (
-                <div className="msg">
-                  <i></i>
-                  <div className="columns">
-                    <div className="column is-half is-offset-one-quarter">
-                      <article className="media">
-                        <figure className="media-left">
-                          <img
-                            src="/img/happy.svg"
-                            className="logo"
-                            alt="UrsSur"
-                          />
-                        </figure>
-                        <div className="media-content">
-                          <p>Bravo ai raspuns corect :</p>
-                          <p>
-                            <strong className="v">
-                              {state.intrebari[0].v}
-                            </strong>
-                          </p>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {corecta === "false" && (
-                <div className="msg">
-                  <b></b>
-                  <div className="columns">
-                    <div className="column is-half is-offset-one-quarter">
-                      <article className="media">
-                        <figure className="media-left">
-                          <img
-                            src="/img/ooops.svg"
-                            className="logo"
-                            alt="UrsSur"
-                          />
-                        </figure>
-                        <div className="media-content">
-                          <p>Omul din greseli invata !</p>
-                          <p>
-                            Corect este :{" "}
-                            <strong className="v">
-                              {state.intrebari[0].v}
-                            </strong>
-                          </p>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          )
-
-          /*Answer.length*/
-        }
+        {answers.length > 0 && (
+          <div className="verificator">
+            {corecta === "true" && (
+              <Ansmsg correct={true} variante={state.intrebari[0].v} />
+            )}
+            {corecta === "false" && (
+              <Ansmsg correct={false} variante={state.intrebari[0].v} />
+            )}
+          </div>
+        )}
 
         <div className="questions-menu">
           {!verificata && answers.length > 0 && (
@@ -216,9 +164,11 @@ const Chestionar = () => {
           )}
 
           {verificata && (
-            <button className="urmatoarea" onClick={() => nextQuestion()}>
-              On to the next one
-            </button>
+            <>
+              <button className="urmatoarea" onClick={() => nextQuestion()}>
+                Urmatoarea
+              </button>
+            </>
           )}
         </div>
       </div>

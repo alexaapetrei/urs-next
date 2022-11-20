@@ -1,5 +1,5 @@
 type AnsProps = {
-  value: "a" | "b" | "c";
+  value: string;
   text: string;
   active: boolean;
 };

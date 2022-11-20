@@ -51,8 +51,8 @@ const Cauta = () => {
                 <div className="card-content">
                   <div className="columns">
                     {s.i > 0 && (
-                      <div className="column">
-                        <figure className="image is-3by2">
+                      <div className="column is-4">
+                        <figure className="image">
                           <img src={`/img/${state.categoria}/${s.i}.jpg`}></img>
                         </figure>
                       </div>

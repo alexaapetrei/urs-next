@@ -430,6 +430,7 @@ rgba(102, 102, 102, 0.1)
   color: #fff;
   background: transparent;
   border: 3px solid white;
+  z-index: 1;
 }
 .testThing {
   margin-bottom: 400px;
@@ -524,4 +525,10 @@ h2 {
   font-size: 18px;
   /*line-height: 20px;*/
   display: flex;
+}
+
+.fixies {
+  position: absolute;
+  bottom: 5px;
+  transform: rotate(23deg) scale(2.2)
 }
