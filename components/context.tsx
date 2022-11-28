@@ -13,34 +13,36 @@ interface state {
   goal: number;
   categoria: string;
   intrebari: any;
+  [key: string]: any;
 }
 
 interface QuestionsState {
   state: state;
   setState: any;
+  categoria: string;
 }
 
 function AppProvider({ children }) {
   const init = {
-    curr_corecte: [],
-    curr_gresite: [],
     goal: 26,
-    categoria: "b",
+    a: { curr_gresite: [], curr_corecte: [] },
+    b: { curr_gresite: [], curr_corecte: [] },
+    c: { curr_gresite: [], curr_corecte: [] },
+    d: { curr_gresite: [], curr_corecte: [] },
+    e: { curr_gresite: [], curr_corecte: [] },
+    r: { curr_gresite: [], curr_corecte: [] },
     intrebari: [...catego["b"]],
   };
   const [state, setState] = useState(init);
-
+  const [categoria, setCategoria] = useState("b");
   useEffect(() => {
     let loadState = init;
     if (localStorage.getItem("persistedState")) {
       loadState = JSON.parse(localStorage.getItem("persistedState"));
-      let done = loadState.curr_corecte.concat(loadState.curr_gresite);
-      let intrebariRamase = catego[loadState.categoria].filter(
-        (i) => !done.includes(i.id)
-      );
-      loadState = { ...loadState, intrebari: intrebariRamase };
     }
-    setState(loadState);
+    setState((prev) => {
+      return { ...prev, ...loadState };
+    });
   }, []);
 
   useEffect(() => {

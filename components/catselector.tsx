@@ -6,10 +6,15 @@ const CatSelector = () => {
   const { state, setState } = useContext(AppContext);
 
   function clicked(thing: string) {
+    let lolState = state[thing];
+    let curr_corecte = lolState?.curr_corecte || [];
+    let curr_gresite = lolState?.curr_gresite || [];
+    let done = [...curr_corecte, ...curr_gresite];
+    let intrebari = catego[thing].filter((f) => !done.includes(f.id));
     setState({
       ...state,
       categoria: thing,
-      intrebari: catego[thing],
+      intrebari: intrebari,
     });
   }
 
