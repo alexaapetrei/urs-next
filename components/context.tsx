@@ -34,7 +34,6 @@ function AppProvider({ children }) {
     intrebari: [...catego["b"]],
   };
   const [state, setState] = useState(init);
-  const [categoria, setCategoria] = useState("b");
   useEffect(() => {
     let loadState = init;
     if (localStorage.getItem("persistedState")) {
