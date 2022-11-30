@@ -1,17 +1,11 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import { createContext, useState, useEffect } from "react";
 import catego from "../data/catego";
 
 interface state {
-  curr_corecte: any;
-  curr_gresite: any;
+  corecte?: any;
+  gresite?: any;
   goal: number;
-  categoria: string;
+  categoria?: string;
   intrebari: any;
   [key: string]: any;
 }
@@ -19,18 +13,19 @@ interface state {
 interface QuestionsState {
   state: state;
   setState: any;
-  categoria: string;
+  categoria?: string;
 }
 
 function AppProvider({ children }) {
   const init = {
     goal: 26,
-    a: { curr_gresite: [], curr_corecte: [] },
-    b: { curr_gresite: [], curr_corecte: [] },
-    c: { curr_gresite: [], curr_corecte: [] },
-    d: { curr_gresite: [], curr_corecte: [] },
-    e: { curr_gresite: [], curr_corecte: [] },
-    r: { curr_gresite: [], curr_corecte: [] },
+    a: { gresite: [], corecte: [] },
+    b: { gresite: [], corecte: [] },
+    c: { gresite: [], corecte: [] },
+    d: { gresite: [], corecte: [] },
+    e: { gresite: [], corecte: [] },
+    r: { gresite: [], corecte: [] },
+    t: { gresite: [], corecte: [] },
     intrebari: [...catego["b"]],
   };
   const [state, setState] = useState(init);
@@ -42,11 +37,13 @@ function AppProvider({ children }) {
     setState((prev) => {
       return { ...prev, ...loadState };
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (JSON.stringify(state) != JSON.stringify(init))
       localStorage.setItem("persistedState", JSON.stringify(state));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   return (

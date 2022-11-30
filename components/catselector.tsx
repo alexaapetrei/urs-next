@@ -1,19 +1,19 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { AppContext } from "../components/context";
 import catego from "../data/catego";
 
 const CatSelector = () => {
   const { state, setState } = useContext(AppContext);
 
-  function clicked(thing: string) {
-    let lolState = state[thing];
-    let curr_corecte = lolState?.curr_corecte || [];
-    let curr_gresite = lolState?.curr_gresite || [];
-    let done = [...curr_corecte, ...curr_gresite];
-    let intrebari = catego[thing].filter((f) => !done.includes(f.id));
+  function clicked(categoria: string) {
+    let cate = state[categoria];
+    let corecte = cate?.corecte || [];
+    let gresite = cate?.gresite || [];
+    let done = [...corecte, ...gresite];
+    let intrebari = catego[categoria].filter((f) => !done.includes(f.id));
     setState({
       ...state,
-      categoria: thing,
+      categoria: categoria,
       intrebari: intrebari,
     });
   }
@@ -21,7 +21,7 @@ const CatSelector = () => {
   return (
     <div className="catsel tabs is-toggle is-fullwidth is-medium">
       <ul>
-        {["a", "b", "c", "d", "e", "r"].map((cat) => {
+        {["a", "b", "c", "d", "e", "r", "t"].map((cat) => {
           return (
             <li
               className={state.categoria == cat ? "is-active" : null}

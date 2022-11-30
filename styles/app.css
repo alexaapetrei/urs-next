@@ -18,12 +18,12 @@
   transition-all
   my-14 
   rounded  
-  bg-green-500 
+  bg-yellow-600 
   text-white snap-center;
 }
 
 .tailBtn:hover {
-  @apply bg-green-200
+  @apply bg-orange-500
   ring-orange-300 ring-2
   subpixel-antialiased  text-gray-600 transition-all;
 }
