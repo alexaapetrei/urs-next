@@ -1,16 +1,25 @@
 import { createContext, useState, useEffect } from "react";
 import catego from "../data/catego";
 
-interface state {
-  corecte?: any;
-  gresite?: any;
+export interface state {
   goal: number;
   categoria?: string;
-  intrebari: any;
+  intrebari: intrebare[];
   [key: string]: any;
 }
 
-interface QuestionsState {
+export interface intrebare {
+  id: string;
+  cat: string;
+  q: string;
+  a: string;
+  b: string;
+  c: string;
+  i: number;
+  v: string;
+}
+
+export interface QuestionsState {
   state: state;
   setState: any;
   categoria?: string;
@@ -26,7 +35,7 @@ function AppProvider({ children }) {
     e: { gresite: [], corecte: [] },
     r: { gresite: [], corecte: [] },
     t: { gresite: [], corecte: [] },
-    intrebari: [...catego["b"]],
+    intrebari: [...(catego["b"] as intrebare[])],
   };
   const [state, setState] = useState(init);
   useEffect(() => {

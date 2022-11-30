@@ -13,8 +13,8 @@ function Chestionar() {
   let intrebare = intrebari[0];
 
   let cate = state[categoria];
-  corecte = cate?.corecte;
-  gresite = cate?.gresite;
+  corecte = cate?.corecte || [];
+  gresite = cate?.gresite || [];
   let [answers, setAnswers] = useState([]);
   let [corecta, setCorecta] = useState("");
   let [verificata, setVerificata] = useState(false);
