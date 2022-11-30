@@ -30,25 +30,23 @@ function Chestionar() {
       ans.push(a);
     }
     setAnswers(ans);
-    console.log("current answers : ", answers);
-    console.log("Coorect answer ::: ", intrebare.v);
   }
 
   function checkAnswer() {
     if (intrebare.v === answers.join("")) {
       corecte.push(intrebare.id);
 
-      console.log("Correct Answer Array>>> ", corecte);
       setCorecta("true");
     } else {
       gresite.push(intrebare.id);
       setCorecta("false");
-      console.log("Wrong answer bro >>>  ", gresite);
     }
     setVerificata(!verificata);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function nextQuestion() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     let theDone;
     if (cate) theDone = cate;
 
@@ -67,7 +65,6 @@ function Chestionar() {
 
     setState({ ...state, ...theDone, intrebari: newIntre });
   }
-  console.log(intrebare);
   intrebare ?? router.replace("terminat");
   return (
     <div id="app">

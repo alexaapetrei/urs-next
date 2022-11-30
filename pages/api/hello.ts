@@ -2,10 +2,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 interface Data {
-  name: string;
-  error: string;
-  status: number;
-  message: string;
+  name?: string;
+  error?: string;
+  status?: number;
+  message?: string;
 }
 
 export default function handler(
@@ -15,6 +15,5 @@ export default function handler(
   let {lol} = req.query
 
   if(lol !== "secret") return res.status(419).json({ error:"lol" , message:"you are an idiot"});
-  console.log("the querry is :  ",req.query)
   res.status(200).json({ name: `John ${lol}` })
 }

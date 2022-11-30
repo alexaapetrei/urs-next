@@ -18,7 +18,6 @@ const Cauta = () => {
     );
 
     setFound(filtered.splice(0, 10));
-    console.log(found);
   }, [search, state.categoria]);
 
   return (

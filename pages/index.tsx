@@ -6,7 +6,6 @@ import Link from "next/link";
 const Home = ({ data }) => {
   const { state, setState } = useContext(AppContext);
 
-  console.log("Da fak,    ", data);
   return (
     <>
       <h1 className=" text-4xl font-bold text-neutral-700 pb-7 ">
